@@ -1,0 +1,1803 @@
+# Dayflow — Human Resource Management System
+
+> **Every workday, perfectly aligned.**
+
+Dayflow is a full-stack Human Resource Management System designed to digitize and streamline core HR operations such as employee onboarding, profile management, attendance tracking, leave management, payroll visibility, approval workflows, notifications, and analytics.
+
+The system provides separate access and functionality for **Admin/HR Officers** and **Employees**.
+
+---
+
+## 📌 Project Overview
+
+Dayflow provides a centralized platform where organizations can manage employees and HR operations efficiently.
+
+### Admin / HR Officer
+
+Admin/HR users can:
+
+* Manage employees
+* View and update employee profiles
+* View attendance records
+* Manage attendance
+* View leave requests
+* Approve or reject leave requests
+* Add approval comments
+* View payroll information
+* Update salary structures
+* View reports and analytics
+* Receive notifications
+
+### Employee
+
+Employees can:
+
+* Register and log in
+* View their dashboard
+* View and manage permitted profile information
+* Check in and check out
+* View attendance history
+* Apply for leave
+* View leave request status
+* View payroll information
+* View documents
+* Receive notifications
+
+Employees have restricted access to their own information, while Admin/HR users have management and approval privileges.
+
+---
+
+# 🚀 Features
+
+## 🔐 Authentication & Authorization
+
+* Employee/HR registration
+* Email and password login
+* Password validation
+* Secure password hashing
+* JWT authentication
+* Logout
+* Email verification flow
+* Role-based access control
+* Protected routes
+* Protected APIs
+
+---
+
+## 👤 Employee Management
+
+Admin/HR can:
+
+* Add employees
+* View employees
+* Search employees
+* View employee profiles
+* Edit employee details
+* Deactivate employees
+
+Employee profiles contain:
+
+### Personal Details
+
+* Full name
+* Employee ID
+* Email
+* Phone
+* Address
+* Profile picture
+
+### Job Details
+
+* Department
+* Position
+* Joining date
+* Employment status
+
+### Salary Information
+
+* Basic salary
+* Allowances
+* Deductions
+* Net salary
+
+### Documents
+
+* Employee documents and related information
+
+Employees can edit only permitted personal fields such as phone, address, and profile picture.
+
+---
+
+# 🕒 Attendance Management
+
+Dayflow provides daily and weekly attendance tracking.
+
+### Employee Features
+
+* Check in
+* Check out
+* View today's attendance
+* View attendance history
+* View daily attendance
+* View weekly attendance
+* View working duration
+
+### Attendance Status
+
+* Present
+* Absent
+* Half-day
+* Leave
+
+### Business Rules
+
+* An employee cannot check in multiple times on the same day.
+* An employee cannot check out before checking in.
+* An employee cannot check out multiple times.
+* Employees can only view their own attendance.
+* Admin/HR can view attendance of all employees.
+
+---
+
+# 🏖️ Leave & Time-Off Management
+
+Employees can request time off.
+
+### Leave Types
+
+* Paid Leave
+* Sick Leave
+* Unpaid Leave
+
+### Leave Request
+
+Employees provide:
+
+* Leave type
+* Start date
+* End date
+* Remarks
+
+### Leave Status
+
+* Pending
+* Approved
+* Rejected
+
+### Admin/HR
+
+Admin/HR can:
+
+* View all leave requests
+* Approve requests
+* Reject requests
+* Add comments
+
+Approved leave is reflected appropriately in employee records and attendance.
+
+---
+
+# 💰 Payroll & Salary Management
+
+### Employee
+
+Employees have read-only access to payroll information.
+
+Displayed information includes:
+
+* Employee
+* Employee ID
+* Basic salary
+* Allowances
+* Deductions
+* Net salary
+* Pay period
+
+### Admin / HR
+
+Admin/HR can:
+
+* View payroll information
+* Update salary structures
+* Maintain payroll details
+
+> Dayflow focuses on payroll visibility and management. It does not implement actual banking or payment processing.
+
+---
+
+# 🔔 Notifications
+
+The system provides notifications for important HR events.
+
+Notifications may be generated for:
+
+* Leave submitted
+* Leave approved
+* Leave rejected
+* Important HR updates
+* Relevant attendance events
+
+Notification features include:
+
+* Read/unread status
+* Mark as read
+* Mark all as read
+* Unread notification count
+* Notification timestamps
+
+---
+
+# 📊 Reports & Analytics
+
+Admin/HR users can access analytics and reports.
+
+### Attendance Analytics
+
+* Attendance trends
+* Present percentage
+* Absent percentage
+* Leave percentage
+
+### Leave Analytics
+
+* Total requests
+* Pending requests
+* Approved requests
+* Rejected requests
+* Leave type distribution
+
+### Payroll Analytics
+
+* Salary overview
+* Salary distribution
+* Department salary overview
+
+Charts are implemented using the frontend charting library.
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+* **Next.js**
+* **React**
+* **TypeScript**
+* **Tailwind CSS**
+* **shadcn/ui**
+* **Lucide React**
+* **Recharts**
+* **React Hook Form**
+* **Zod**
+
+## Backend
+
+* **Python**
+* **FastAPI**
+* **Pydantic**
+* **SQLAlchemy**
+* **Alembic**
+* **JWT Authentication**
+
+## Database
+
+* **Neon PostgreSQL**
+
+## Development
+
+* Git
+* GitHub
+* REST APIs
+* Swagger/OpenAPI through FastAPI
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                    DAYFLOW HRMS
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │    Next.js Frontend │
+              │ React + TypeScript  │
+              │ Tailwind + shadcn   │
+              └──────────┬──────────┘
+                         │
+                      REST API
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │   FastAPI Backend   │
+              │ Python + Pydantic   │
+              │ JWT + SQLAlchemy    │
+              └──────────┬──────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │  Neon PostgreSQL    │
+              │    Database         │
+              └─────────────────────┘
+```
+
+---
+
+# 📁 Project Structure
+
+```text
+dayflow-hrms/
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── hooks/
+│   ├── lib/
+│   ├── services/
+│   ├── types/
+│   ├── public/
+│   └── package.json
+│
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── routers/
+│   │   ├── services/
+│   │   ├── auth/
+│   │   └── utils/
+│   ├── migrations/
+│   └── requirements.txt
+│
+├── database/
+│
+├── tests/
+│
+├── docs/
+│
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+> The exact structure may evolve during development while maintaining separation between frontend, backend, database, and testing responsibilities.
+
+---
+
+# 🗄️ Database Design
+
+Dayflow uses **Neon PostgreSQL** as the persistent database.
+
+Core entities include:
+
+```text
+Users
+  │
+  ├── Roles
+  │
+  └── Employees
+        │
+        ├── Employee Profile
+        ├── Attendance
+        ├── Leave Requests
+        ├── Payroll
+        ├── Documents
+        └── Notifications
+
+Departments
+Leave Types
+Salary Components
+Audit Logs
+```
+
+### Main Tables
+
+* `users`
+* `roles`
+* `employees`
+* `departments`
+* `employee_profiles`
+* `attendance`
+* `leave_types`
+* `leave_requests`
+* `payroll`
+* `salary_components`
+* `documents`
+* `notifications`
+* `audit_logs`
+
+SQLAlchemy is used for ORM-based database access and Alembic is used for database migrations.
+
+---
+
+# 🔌 API Overview
+
+## Authentication
+
+```text
+POST /auth/signup
+POST /auth/login
+POST /auth/logout
+POST /auth/verify-email
+```
+
+## Employees
+
+```text
+GET    /employees
+GET    /employees/{id}
+POST   /employees
+PUT    /employees/{id}
+DELETE /employees/{id}
+```
+
+## Profile
+
+```text
+GET /profile
+PUT /profile
+```
+
+## Attendance
+
+```text
+GET  /attendance
+POST /attendance/check-in
+POST /attendance/check-out
+GET  /attendance/{employee_id}
+```
+
+## Leave
+
+```text
+GET  /leave
+POST /leave
+GET  /leave/{id}
+PUT  /leave/{id}/approve
+PUT  /leave/{id}/reject
+```
+
+## Payroll
+
+```text
+GET /payroll
+GET /payroll/{employee_id}
+PUT /payroll/{employee_id}
+```
+
+## Notifications
+
+```text
+GET /notifications
+PUT /notifications/{id}/read
+PUT /notifications/read-all
+```
+
+## Analytics
+
+```text
+GET /analytics/attendance
+GET /analytics/leave
+GET /analytics/payroll
+```
+
+---
+
+# 🔑 Environment Variables
+
+Create a `.env` file locally.
+
+Example:
+
+```env
+DATABASE_URL=your_neon_postgresql_connection_string
+JWT_SECRET_KEY=your_secure_secret_key
+CORS_ORIGINS=http://localhost:3000
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+```
+
+For GitHub, only commit:
+
+```text
+.env.example
+```
+
+Never commit:
+
+```text
+.env
+```
+
+---
+
+# 💻 Installation
+
+## 1. Clone the repository
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+cd dayflow-hrms
+```
+
+---
+
+# 🎨 Frontend Setup
+
+Navigate to the frontend:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start development server:
+
+```bash
+npm run dev
+```
+
+The frontend will normally be available at:
+
+```text
+http://localhost:3000
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Run linting if configured:
+
+```bash
+npm run lint
+```
+
+---
+
+# ⚙️ Backend Setup
+
+Navigate to the backend:
+
+```bash
+cd backend
+```
+
+Create a Python virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Activate it on Linux/macOS:
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start FastAPI:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Backend will normally run at:
+
+```text
+http://localhost:8000
+```
+
+FastAPI API documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+---
+
+# 🐘 Neon PostgreSQL Setup
+
+1. Create or open the Neon PostgreSQL project.
+2. Copy the Neon connection string.
+3. Add it to the local `.env` file:
+
+```env
+DATABASE_URL=your_neon_connection_string
+```
+
+4. Run the project's Alembic migrations.
+5. Verify the database tables.
+6. Load development seed data if configured.
+7. Start the backend and verify that the API can communicate with Neon.
+
+The Neon connection string must never be committed to GitHub.
+
+---
+
+# 🔄 Database Migration
+
+From the backend directory:
+
+```bash
+alembic upgrade head
+```
+
+To create a migration after a model change:
+
+```bash
+alembic revision --autogenerate -m "describe migration"
+```
+
+Then apply it:
+
+```bash
+alembic upgrade head
+```
+
+Only the designated database developer should normally create and maintain migrations in the team workflow.
+
+---
+
+# 👥 User Roles
+
+## Admin / HR
+
+Admin/HR has management and approval privileges.
+
+Admin/HR can access:
+
+* Dashboard
+* Employees
+* Attendance
+* Leave Management
+* Payroll
+* Reports & Analytics
+* Notifications
+* Settings
+
+## Employee
+
+Employees have limited access to their own information.
+
+Employees can access:
+
+* Dashboard
+* My Profile
+* Attendance
+* Leave Requests
+* Payroll
+* Documents
+* Notifications
+* Settings
+
+---
+
+# 🔒 Security
+
+Dayflow implements security practices including:
+
+* Password hashing
+* JWT authentication
+* Role-based authorization
+* Protected frontend routes
+* Protected backend endpoints
+* Input validation
+* ORM-based database access
+* Environment variables
+* CORS configuration
+* No plaintext passwords
+* No hard-coded database credentials
+
+---
+
+# 🧪 Testing
+
+Important workflows to test include:
+
+### Authentication
+
+* Signup
+* Login
+* Invalid login
+* Logout
+* Email verification
+* Role authorization
+
+### Attendance
+
+* Check-in
+* Check-out
+* Duplicate check-in prevention
+* Invalid check-out
+* Attendance visibility
+
+### Leave
+
+* Apply leave
+* View leave
+* Approve leave
+* Reject leave
+* Comments
+* Employee access restrictions
+
+### Payroll
+
+* Employee read-only access
+* Admin payroll updates
+
+### Authorization
+
+* Employee cannot access admin functionality
+* Employee cannot access another employee's private information
+* Employee cannot modify salary data
+
+---
+
+# 🌱 Demo Accounts
+
+Development/demo accounts may include:
+
+### Admin
+
+```text
+Email: admin@dayflow.com
+```
+
+### Employee
+
+```text
+Email: employee@dayflow.com
+```
+
+> Development passwords should be configured securely and should not be committed to the repository.
+
+---
+
+# 🤝 Team Development Workflow
+
+Dayflow is developed by a 3-member team.
+
+### Member 1
+
+Frontend:
+
+```text
+frontend/
+```
+
+### Member 2
+
+Backend:
+
+```text
+backend/
+```
+
+### Member 3
+
+Database + Testing:
+
+```text
+database/
+tests/
+```
+
+### Hourly Git Workflow
+
+At the beginning of every hour:
+
+```bash
+git checkout main
+git pull --rebase origin main
+```
+
+Each member works on their assigned module.
+
+At the end of the hour:
+
+```bash
+git status
+git diff
+git add .
+git commit -m "feat: describe completed work"
+git push origin main
+```
+
+The members push sequentially so that every member's contribution reaches the shared `main` branch every hour.
+
+### Important Git Rules
+
+Never use:
+
+```bash
+git push --force
+```
+
+Never use destructive commands to overwrite another team member's work.
+
+Always pull the latest `main` before continuing work.
+
+---
+
+# 📌 Development Priorities
+
+The recommended development order is:
+
+1. Project setup
+2. Authentication
+3. Role-based access
+4. Employee management
+5. Employee profiles
+6. Attendance
+7. Leave management
+8. Leave approval
+9. Payroll
+10. Notifications
+11. Reports and analytics
+12. Integration testing
+13. Bug fixing
+14. Responsive and UI refinement
+
+---
+
+# Dayflow — Human Resource Management System
+
+> **Every workday, perfectly aligned.**
+
+Dayflow is a full-stack Human Resource Management System designed to digitize and streamline core HR operations such as employee onboarding, profile management, attendance tracking, leave management, payroll visibility, approval workflows, notifications, and analytics.
+
+The system provides separate access and functionality for **Admin/HR Officers** and **Employees**.
+
+---
+
+## 📌 Project Overview
+
+Dayflow provides a centralized platform where organizations can manage employees and HR operations efficiently.
+
+### Admin / HR Officer
+
+Admin/HR users can:
+
+* Manage employees
+* View and update employee profiles
+* View attendance records
+* Manage attendance
+* View leave requests
+* Approve or reject leave requests
+* Add approval comments
+* View payroll information
+* Update salary structures
+* View reports and analytics
+* Receive notifications
+
+### Employee
+
+Employees can:
+
+* Register and log in
+* View their dashboard
+* View and manage permitted profile information
+* Check in and check out
+* View attendance history
+* Apply for leave
+* View leave request status
+* View payroll information
+* View documents
+* Receive notifications
+
+Employees have restricted access to their own information, while Admin/HR users have management and approval privileges.
+
+---
+
+# 🚀 Features
+
+## 🔐 Authentication & Authorization
+
+* Employee/HR registration
+* Email and password login
+* Password validation
+* Secure password hashing
+* JWT authentication
+* Logout
+* Email verification flow
+* Role-based access control
+* Protected routes
+* Protected APIs
+
+---
+
+## 👤 Employee Management
+
+Admin/HR can:
+
+* Add employees
+* View employees
+* Search employees
+* View employee profiles
+* Edit employee details
+* Deactivate employees
+
+Employee profiles contain:
+
+### Personal Details
+
+* Full name
+* Employee ID
+* Email
+* Phone
+* Address
+* Profile picture
+
+### Job Details
+
+* Department
+* Position
+* Joining date
+* Employment status
+
+### Salary Information
+
+* Basic salary
+* Allowances
+* Deductions
+* Net salary
+
+### Documents
+
+* Employee documents and related information
+
+Employees can edit only permitted personal fields such as phone, address, and profile picture.
+
+---
+
+# 🕒 Attendance Management
+
+Dayflow provides daily and weekly attendance tracking.
+
+### Employee Features
+
+* Check in
+* Check out
+* View today's attendance
+* View attendance history
+* View daily attendance
+* View weekly attendance
+* View working duration
+
+### Attendance Status
+
+* Present
+* Absent
+* Half-day
+* Leave
+
+### Business Rules
+
+* An employee cannot check in multiple times on the same day.
+* An employee cannot check out before checking in.
+* An employee cannot check out multiple times.
+* Employees can only view their own attendance.
+* Admin/HR can view attendance of all employees.
+
+---
+
+# 🏖️ Leave & Time-Off Management
+
+Employees can request time off.
+
+### Leave Types
+
+* Paid Leave
+* Sick Leave
+* Unpaid Leave
+
+### Leave Request
+
+Employees provide:
+
+* Leave type
+* Start date
+* End date
+* Remarks
+
+### Leave Status
+
+* Pending
+* Approved
+* Rejected
+
+### Admin/HR
+
+Admin/HR can:
+
+* View all leave requests
+* Approve requests
+* Reject requests
+* Add comments
+
+Approved leave is reflected appropriately in employee records and attendance.
+
+---
+
+# 💰 Payroll & Salary Management
+
+### Employee
+
+Employees have read-only access to payroll information.
+
+Displayed information includes:
+
+* Employee
+* Employee ID
+* Basic salary
+* Allowances
+* Deductions
+* Net salary
+* Pay period
+
+### Admin / HR
+
+Admin/HR can:
+
+* View payroll information
+* Update salary structures
+* Maintain payroll details
+
+> Dayflow focuses on payroll visibility and management. It does not implement actual banking or payment processing.
+
+---
+
+# 🔔 Notifications
+
+The system provides notifications for important HR events.
+
+Notifications may be generated for:
+
+* Leave submitted
+* Leave approved
+* Leave rejected
+* Important HR updates
+* Relevant attendance events
+
+Notification features include:
+
+* Read/unread status
+* Mark as read
+* Mark all as read
+* Unread notification count
+* Notification timestamps
+
+---
+
+# 📊 Reports & Analytics
+
+Admin/HR users can access analytics and reports.
+
+### Attendance Analytics
+
+* Attendance trends
+* Present percentage
+* Absent percentage
+* Leave percentage
+
+### Leave Analytics
+
+* Total requests
+* Pending requests
+* Approved requests
+* Rejected requests
+* Leave type distribution
+
+### Payroll Analytics
+
+* Salary overview
+* Salary distribution
+* Department salary overview
+
+Charts are implemented using the frontend charting library.
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+* **Next.js**
+* **React**
+* **TypeScript**
+* **Tailwind CSS**
+* **shadcn/ui**
+* **Lucide React**
+* **Recharts**
+* **React Hook Form**
+* **Zod**
+
+## Backend
+
+* **Python**
+* **FastAPI**
+* **Pydantic**
+* **SQLAlchemy**
+* **Alembic**
+* **JWT Authentication**
+
+## Database
+
+* **Neon PostgreSQL**
+
+## Development
+
+* Git
+* GitHub
+* REST APIs
+* Swagger/OpenAPI through FastAPI
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                    DAYFLOW HRMS
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │    Next.js Frontend │
+              │ React + TypeScript  │
+              │ Tailwind + shadcn   │
+              └──────────┬──────────┘
+                         │
+                      REST API
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │   FastAPI Backend   │
+              │ Python + Pydantic   │
+              │ JWT + SQLAlchemy    │
+              └──────────┬──────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │  Neon PostgreSQL    │
+              │    Database         │
+              └─────────────────────┘
+```
+
+---
+
+# 📁 Project Structure
+
+```text
+dayflow-hrms/
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── hooks/
+│   ├── lib/
+│   ├── services/
+│   ├── types/
+│   ├── public/
+│   └── package.json
+│
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── routers/
+│   │   ├── services/
+│   │   ├── auth/
+│   │   └── utils/
+│   ├── migrations/
+│   └── requirements.txt
+│
+├── database/
+│
+├── tests/
+│
+├── docs/
+│
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+> The exact structure may evolve during development while maintaining separation between frontend, backend, database, and testing responsibilities.
+
+---
+
+# 🗄️ Database Design
+
+Dayflow uses **Neon PostgreSQL** as the persistent database.
+
+Core entities include:
+
+```text
+Users
+  │
+  ├── Roles
+  │
+  └── Employees
+        │
+        ├── Employee Profile
+        ├── Attendance
+        ├── Leave Requests
+        ├── Payroll
+        ├── Documents
+        └── Notifications
+
+Departments
+Leave Types
+Salary Components
+Audit Logs
+```
+
+### Main Tables
+
+* `users`
+* `roles`
+* `employees`
+* `departments`
+* `employee_profiles`
+* `attendance`
+* `leave_types`
+* `leave_requests`
+* `payroll`
+* `salary_components`
+* `documents`
+* `notifications`
+* `audit_logs`
+
+SQLAlchemy is used for ORM-based database access and Alembic is used for database migrations.
+
+---
+
+# 🔌 API Overview
+
+## Authentication
+
+```text
+POST /auth/signup
+POST /auth/login
+POST /auth/logout
+POST /auth/verify-email
+```
+
+## Employees
+
+```text
+GET    /employees
+GET    /employees/{id}
+POST   /employees
+PUT    /employees/{id}
+DELETE /employees/{id}
+```
+
+## Profile
+
+```text
+GET /profile
+PUT /profile
+```
+
+## Attendance
+
+```text
+GET  /attendance
+POST /attendance/check-in
+POST /attendance/check-out
+GET  /attendance/{employee_id}
+```
+
+## Leave
+
+```text
+GET /leave
+POST /leave
+GET /leave/{id}
+PUT /leave/{id}/approve
+PUT /leave/{id}/reject
+```
+
+## Payroll
+
+```text
+GET /payroll
+GET /payroll/{employee_id}
+PUT /payroll/{employee_id}
+```
+
+## Notifications
+
+```text
+GET /notifications
+PUT /notifications/{id}/read
+PUT /notifications/read-all
+```
+
+## Analytics
+
+```text
+GET /analytics/attendance
+GET /analytics/leave
+GET /analytics/payroll
+```
+
+---
+
+# 🔑 Environment Variables
+
+Create a `.env` file locally.
+
+Example:
+
+```env
+DATABASE_URL=your_neon_postgresql_connection_string
+JWT_SECRET_KEY=your_secure_secret_key
+CORS_ORIGINS=http://localhost:3000
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+```
+
+For GitHub, only commit:
+
+```text
+.env.example
+```
+
+Never commit:
+
+```text
+.env
+```
+
+---
+
+# 💻 Installation
+
+## 1. Clone the repository
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+cd dayflow-hrms
+```
+
+---
+
+# 🎨 Frontend Setup
+
+Navigate to the frontend:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start development server:
+
+```bash
+npm run dev
+```
+
+The frontend will normally be available at:
+
+```text
+http://localhost:3000
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Run linting if configured:
+
+```bash
+npm run lint
+```
+
+---
+
+# ⚙️ Backend Setup
+
+Navigate to the backend:
+
+```bash
+cd backend
+```
+
+Create a Python virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Activate it on Linux/macOS:
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start FastAPI:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Backend will normally run at:
+
+```text
+http://localhost:8000
+```
+
+FastAPI API documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+---
+
+# 🐘 Neon PostgreSQL Setup
+
+1. Create or open the Neon PostgreSQL project.
+2. Copy the Neon connection string.
+3. Add it to the local `.env` file:
+
+```env
+DATABASE_URL=your_neon_connection_string
+```
+
+4. Run the project's Alembic migrations.
+5. Verify the database tables.
+6. Load development seed data if configured.
+7. Start the backend and verify that the API can communicate with Neon.
+
+The Neon connection string must never be committed to GitHub.
+
+---
+
+# 🔄 Database Migration
+
+From the backend directory:
+
+```bash
+alembic upgrade head
+```
+
+To create a migration after a model change:
+
+```bash
+alembic revision --autogenerate -m "describe migration"
+```
+
+Then apply it:
+
+```bash
+alembic upgrade head
+```
+
+Only the designated database developer should normally create and maintain migrations in the team workflow.
+
+---
+
+# 👥 User Roles
+
+## Admin / HR
+
+Admin/HR has management and approval privileges.
+
+Admin/HR can access:
+
+* Dashboard
+* Employees
+* Attendance
+* Leave Management
+* Payroll
+* Reports & Analytics
+* Notifications
+* Settings
+
+## Employee
+
+Employees have limited access to their own information.
+
+Employees can access:
+
+* Dashboard
+* My Profile
+* Attendance
+* Leave Requests
+* Payroll
+* Documents
+* Notifications
+* Settings
+
+---
+
+# 🔒 Security
+
+Dayflow implements security practices including:
+
+* Password hashing
+* JWT authentication
+* Role-based authorization
+* Protected frontend routes
+* Protected backend endpoints
+* Input validation
+* ORM-based database access
+* Environment variables
+* CORS configuration
+* No plaintext passwords
+* No hard-coded database credentials
+
+---
+
+# 🧪 Testing
+
+Important workflows to test include:
+
+### Authentication
+
+* Signup
+* Login
+* Invalid login
+* Logout
+* Email verification
+* Role authorization
+
+### Attendance
+
+* Check-in
+* Check-out
+* Duplicate check-in prevention
+* Invalid check-out
+* Attendance visibility
+
+### Leave
+
+* Apply leave
+* View leave
+* Approve leave
+* Reject leave
+* Comments
+* Employee access restrictions
+
+### Payroll
+
+* Employee read-only access
+* Admin payroll updates
+
+### Authorization
+
+* Employee cannot access admin functionality
+* Employee cannot access another employee's private information
+* Employee cannot modify salary data
+
+---
+
+# 🌱 Demo Accounts
+
+Development/demo accounts may include:
+
+### Admin
+
+```text
+Email: admin@dayflow.com
+```
+
+### Employee
+
+```text
+Email: employee@dayflow.com
+```
+
+> Development passwords should be configured securely and should not be committed to the repository.
+
+---
+
+# 🤝 Team Development Workflow
+
+Dayflow is developed by a 3-member team.
+
+### Member 1
+
+Frontend:
+
+```text
+frontend/
+```
+
+### Member 2
+
+Backend:
+
+```text
+backend/
+```
+
+### Member 3
+
+Database + Testing:
+
+```text
+database/
+tests/
+```
+
+### Hourly Git Workflow
+
+At the beginning of every hour:
+
+```bash
+git checkout main
+git pull --rebase origin main
+```
+
+Each member works on their assigned module.
+
+At the end of the hour:
+
+```bash
+git status
+git diff
+git add .
+git commit -m "feat: describe completed work"
+git push origin main
+```
+
+The members push sequentially so that every member's contribution reaches the shared `main` branch every hour.
+
+### Important Git Rules
+
+Never use:
+
+```bash
+git push --force
+```
+
+Never use destructive commands to overwrite another team member's work.
+
+Always pull the latest `main` before continuing work.
+
+---
+
+# 📌 Development Priorities
+
+The recommended development order is:
+
+1. Project setup
+2. Authentication
+3. Role-based access
+4. Employee management
+5. Employee profiles
+6. Attendance
+7. Leave management
+8. Leave approval
+9. Payroll
+10. Notifications
+11. Reports and analytics
+12. Integration testing
+13. Bug fixing
+14. Responsive and UI refinement
+
+---
+
+# 🎯 Future Enhancements
+
+Potential future improvements include:
+
+* Advanced analytics
+* Automated email notifications
+* Advanced payroll processing
+* Rich employee document management
+* Enhanced reporting
+* Additional HR workflows
+* Mobile application
+* Advanced audit and compliance features
+
+---
+
+# 📄 Requirements Reference
+
+The project requirements define Dayflow as an HRMS covering employee onboarding, profile management, attendance tracking, leave management, payroll visibility, and approval workflows for Admin/HR and Employees. fileciteturn0file0L5-L20
+
+---
+
+# 👨‍💻 Development Team
+
+**Dayflow HRMS — 3 Member Development Team**
+
+Built as a full-stack HR management solution using:
+
+**Next.js + React + TypeScript + Tailwind CSS**
+
+**FastAPI + Python + SQLAlchemy + Alembic + JWT**
+
+**Neon PostgreSQL**
+
+---
+
+# 📜 License
+
+This project is developed for educational and project demonstration purposes.
+
+---
+
+# 🎯 Future Enhancements
+
+Potential future improvements include:
+
+* Advanced analytics
+* Automated email notifications
+* Advanced payroll processing
+* Rich employee document management
+* Enhanced reporting
+* Additional HR workflows
+* Mobile application
+* Advanced audit and compliance features
+
+---
+
+# 📄 Requirements Reference
+
+The project requirements define Dayflow as an HRMS covering employee onboarding, profile management, attendance tracking, leave management, payroll visibility, and approval workflows for Admin/HR and Employees.
+
+---
+
+# 👨‍💻 Development Team
+
+**Dayflow HRMS — 3 Member Development Team**
+
+Built as a full-stack HR management solution using:
+
+**Next.js + React + TypeScript + Tailwind CSS**
+
+**FastAPI + Python + SQLAlchemy + Alembic + JWT**
+
+**Neon PostgreSQL**
+
+---
+
+# 📜 License
+
+This project is developed for educational and project demonstration purposes.
