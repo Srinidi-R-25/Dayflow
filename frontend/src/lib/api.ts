@@ -17,6 +17,8 @@ import {
 } from './mock-data';
 import { getTodayDateString } from './utils';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 const KEYS = {
   EMPLOYEES: 'dayflow_employees',
   ATTENDANCE: 'dayflow_attendance',
@@ -25,6 +27,7 @@ const KEYS = {
   DOCUMENTS: 'dayflow_documents',
   NOTIFICATIONS: 'dayflow_notifications',
   CURRENT_USER: 'dayflow_current_user',
+  TOKEN: 'dayflow_token',
 };
 
 function getStored<T>(key: string, fallback: T): T {
@@ -33,7 +36,6 @@ function getStored<T>(key: string, fallback: T): T {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : fallback;
   } catch (e) {
-    console.error(`Error reading ${key} from localStorage`, e);
     return fallback;
   }
 }
@@ -47,7 +49,6 @@ function setStored<T>(key: string, value: T): void {
   }
 }
 
-// Service API
 export const api = {
   // Authentication & User
   getCurrentUser: (): User | null => {
@@ -146,7 +147,7 @@ export const api = {
     const todayRecord = records.find(r => r.employeeId === employeeId && r.date === today);
     if (todayRecord) {
       todayRecord.checkOutTime = timeStr;
-      todayRecord.workHours = 8.5; // Calculated standard shift
+      todayRecord.workHours = 8.5;
       setStored(KEYS.ATTENDANCE, records);
     }
     return todayRecord;
@@ -184,7 +185,6 @@ export const api = {
     leaves.unshift(newLeave);
     setStored(KEYS.LEAVES, leaves);
 
-    // Notify employee
     api.addNotification({
       userId: leaveData.employeeId,
       title: 'Leave Request Submitted',
@@ -204,7 +204,6 @@ export const api = {
       leave.reviewedBy = reviewerName;
       setStored(KEYS.LEAVES, leaves);
 
-      // Add Notification for Employee
       api.addNotification({
         userId: leave.employeeId,
         title: `Leave Request ${status === 'APPROVED' ? 'Approved' : 'Rejected'}`,
@@ -232,7 +231,6 @@ export const api = {
       emp.salary = { basicPay, hra, allowances, deductions, netSalary };
       setStored(KEYS.EMPLOYEES, employees);
 
-      // Also update payroll record for current month
       const payrolls = api.getPayroll();
       const currentPay = payrolls.find(p => p.employeeId === emp.employeeId && p.month === 'August 2026');
       if (currentPay) {
